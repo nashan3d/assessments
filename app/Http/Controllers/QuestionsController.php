@@ -15,7 +15,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::simplePaginate(2 );
 
         return view('questions.index',compact('questions'));
     }
@@ -39,6 +39,8 @@ class QuestionsController extends Controller
     public function store(Question $question)
     {
         $attribute = request()->validate(['description' => 'required']);
+
+        $attribute['description'] = trim($attribute['description']); 
 
         Question::create($attribute);
 
@@ -65,9 +67,6 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        // 
-        // dd('edit');
-
         return view('questions.edit',compact('question'));
 
     }
@@ -81,13 +80,13 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        
-        $question->update(request()->validate(['description' => 'required']));
+        $attribute = request()->validate(['description' => 'required']);
 
-       // $assessment = $question->assessment;
+        $attribute['description'] = trim($attribute['description']);
 
-      //  dd($assessment);
+        $question->update($attribute);
 
+       
         return redirect('/questions');
     }
 

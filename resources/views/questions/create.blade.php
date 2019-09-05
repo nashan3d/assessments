@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container">
+<div class="container.fluid">
 
         <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -12,15 +12,13 @@
                                         <form method="post" action="/questions" >
                                         
                                         @csrf
-                                                <div class="form-group row">
-                                                        <label class="col-form-label"><b>Question Description</label>
-                                                </div>
-                                                <div class="form-group row">   
+                                                <div class="form-group">
+                                                        <label class="col-form-label">Question Description</label>                                              
                                                         <textarea name="description" class="form-control" placeholder="Add Question" ></textarea>
                                                 </div>
-                                                <div class="form-group row">
-                                                        <button type="submit" class="btn btn-primary">Add Question</button>                                                
-                                                        <a href="javascript:history.back()" class="btn btn-primary" >Back</a>                                           
+                                                <div class="form-group">
+                                                        <button type="submit" class="btn btn-outline-success">Add Question</button>                                                
+                                                        <a href="javascript:history.back()" class="btn btn-outline-success" >Back</a>                                           
                                                 </div>
                                         </form>                               
                                 </div>           

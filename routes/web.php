@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'],function(){
@@ -34,6 +36,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/questions/{question}/answers','QuestionAnswersController@store');
 
     Route::patch('/answers/{answer}','QuestionAnswersController@update');
+
+    Route::get('/home','HomeController@index');
 
 
 });

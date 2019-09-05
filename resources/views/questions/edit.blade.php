@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container.fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -11,31 +11,24 @@
 
                         @method('patch')
 
-                        @csrf
-
-                            
-
-                                <label class="col-form-label" for="">Edit Question</label> 
-
-                                <textarea class="form-control" name="description"  required>{{ $question->description}}</textarea>
-
-                                <button type="submit" class="btn btn-primary">Update Question</button>   
-
-                                <a href="/questions" class="btn btn-primary" >Back</a>                                                           
+                        @csrf                            
+                            <div class="form-group">
+                                <label class="col-form-label" for="exampleFormControlInput1">Edit Question</label>
+                                <textarea class="form-control" name="description" row="3"  required>{{ $question->description}}</textarea>
+                            </div>
+                                <button type="submit" class="btn btn-outline-success">Update Question</button>  
+                                <a href="/questions" class="btn btn-outline-success" >Back</a>                                                           
 
                                 @include('errors')                            
-                        </form>
-                         
-                                
-
-                                
+                        </form>                          
                     </div>
+
 
                     <div class="card-body">
 
-                            <b> Answers</b>
+                            <h5> Answers</h5>
 
-                            @forelse ($question->answers as $answer)   
+                            @forelse ($question->answers as $key=> $answer)   
 
                             
                             <form method="POST"  action="/answers/{{ $answer->id }}">
@@ -47,15 +40,11 @@
 
                                 @csrf
 
-                                <label class="label" for="correctanswer">
-
-                                    <input type="radio" class="checkbox" name="isCorrectAnswer"  onChange="this.form.submit()" {{ $answer->isCorrectAnswer ? 'checked' : ''}}>
-
-                                    {{ $answer->detail }}            
-
-                                </label>
-
-                                <a href=""></a>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isCorrectAnswer"  onChange="this.form.submit()" {{ $answer->isCorrectAnswer ? 'checked' : ''}}>
+                                    <input type="text" class="form-check-label" for="exampleRadios1" value="{{ $answer->detail }}" id="answer{{$key+1}}" readonly>        
+                                    
+                                </div>                           
 
                             </form> 
 
@@ -76,29 +65,22 @@
                             @csrf
                             
                         
-                            <div class="form-group row">
-                                <label lass="col-form-label" for="">Answer</label> 
-
-                                <textarea class="form-control" name="detail"  required></textarea>
-
-                            </div>
-                            
-                            <div class="form-group row">
-
-                            <input type="checkbox" class="checkbox" name="isCorrectAnswer">
-                            <label lass="col-form-label" for="">Correct Answer</label> 
-
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Answer</label>
+                                <textarea class="form-control" name="detail" placeholder="Type answer here" rows="3"></textarea>
                             </div>
 
-                            <div class="form-group row" >
+                            <div class="form-group">
+                                <div class="form-check">                               
+                                    <input class="form-check-input" type="checkbox" value="" name="isCorrectAnswer">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Correct Answer
+                                    </label>  
+                                </div>                                                        
+                            </div>                            
+                                    <button type="submit" class="btn btn-outline-success">Add Answer</button>                           
 
-                                    <button type="submit" class="btn btn-primary">Add Answer</button>
-
-                            </div>
-
-                            @include('errors')
-
-                        
+                            @include('errors')                        
                         </form>
 
                         @endunless

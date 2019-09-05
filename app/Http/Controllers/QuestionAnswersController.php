@@ -14,6 +14,8 @@ class QuestionAnswersController extends Controller
         
         $answer = request()->validate(['detail'=>'required']);
 
+        $answer['detail'] = trim($answer['detail']);
+
         $answer['isCorrectAnswer'] = request()->has('isCorrectAnswer');
 
         $question->addAnswer($answer);
